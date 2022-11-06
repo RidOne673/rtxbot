@@ -1,18 +1,20 @@
 import fetch from 'node-fetch'
-let handler = async (m, { text, usedPrefix, command }) => {
-    if (!text) throw `Contoh:\n${usedPrefix + command} 1`
-    
-    let json = await fetch(`https://botcahx.ddns.net/api/islamic/surah?no=${text}`)
-        let jsons = await json.json()
-        let caption = `*⎔┉━「 Al-Qur'an 」━┉⎔*`
-        for (let tio of jsons.result) {
-        caption += `
-⎔ *${tio.arab}*
-⎔ *${tio.latin}*
-\n⎔ _${tio.rumi}_
-`}
-        return m.reply(caption)
-        
+let handler = async (m, { text, usedPrefix, command, args, conn }) => {
+    if (!(args[0] || args[1])) throw `contoh:\n${usedPrefix + command} 1 2\n\nmaka hasilnya adalah surah Al-Fatihah ayat 2`
+    if (isNaN(args[0]) || isNaN(args[1])) throw `contoh:\n${usedPrefix + command} 1 2\n\nmaka hasilnya adalah surah Al-Fatihah ayat 2 `
+    let ress = await fetch(`https://islamic-api-indonesia.herokuapp.com/api/data/quran?surah=${args[0]}&ayat=${args[1]}`)
+    let res = await ress.json()
+    m.reply(`
+${res.result.data.text.arab}
+
+${res.result.data.translation.en}
+
+${res.result.data.translation.id}
+
+
+( Q.S ${res.result.data.surah.name.transliteration.id} : ${res.result.data.number.inSurah} )
+`.trim())
+    conn.sendFile(m.chat, res.result.data.audio.primary, 'audio.mp3', '', m)
 }
 handler.help = ['surah <pencarian>']
 handler.tags = ['internet']
