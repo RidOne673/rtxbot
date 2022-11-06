@@ -1,5 +1,5 @@
 let handler =  m => m.reply(`
-╭─「 Donasi • E-Walled 」
+╭─「 Donasi • E-Wallet 」
 │ • Gopay [085706174510]
 │ • SPay [085706174510]
 │ • Dana [085706174510]
