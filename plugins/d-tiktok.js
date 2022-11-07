@@ -1,13 +1,19 @@
-import { tiktokdl, tiktokdlv2 } from '@bochilteam/scraper'
+import fetch from 'node-fetch'
+
 let handler = async (m, { conn, args, usedPrefix, command }) => {
     if (!args[0]) throw `Use example ${usedPrefix}${command} https://www.tiktok.com/@omagadsus/video/7025456384175017243`
-    const { author: { nickname }, video, description } = await tiktokdl(args[0]).catch(async _ => await tiktokdlv2(args[0]))
-    const url = video.no_watermark_raw || video.no_watermark || video.no_watermark_hd || video.with_watermark 
-    if (!url) throw 'Can\'t download video!'
-    conn.sendFile(m.chat, url, 'tiktok.mp4', `
-🔗 *Url:* ${url}
-🧏 *Nickname:* ${nickname}${description ? `🖹 *Description:* ${description}` : ''}
-`.trim(), m)
+let res = await fetch(`https://malesin.xyz/tiktok?url=${args[0]}`)
+if (!res.ok) throw await res.text()
+let json = await res.json()
+if (!json.status == 200) throw json
+let { video, title, author } = json
+await conn.sendFile(m.chat, video, 'video.mp4', `
+🧏 Username: ${author}
+📋 Deskripsi: ${title}
+🔗 Url: ${video}
+
+
+`, m, false, { contextInfo: { forwardingScore: 999, isForwarded: true }})
 }
 handler.help = ['tiktok'].map(v => v + ' <url>')
 handler.tags = ['downloader']
