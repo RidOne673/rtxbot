@@ -1,19 +1,15 @@
-import { lyrics, lyricsv2 } from '@bochilteam/scraper'
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : ''
     if (!teks) throw `Use example ${usedPrefix}${command} hallo`
-    const result = await lyricsv2(teks).catch(async _ => await lyrics(teks))
-    m.reply(`
-Lyrics *${result.title}*
-Author ${result.author}
+    const res = await fetch(`https://leyscoders-api.herokuapp.com/api/lirik?q=${text}&apikey=dappakntlll`)
+    if (!res.ok) throw await res.text()
+    let json = await res.json()
+    if (!json.status == true) throw json
+    m.reply(`Lirik lagu dari ${text} adalah : \n\n${json.result}`)
 
 
-${result.lyrics}
-
-
-Url ${result.link}
-`.trim())
 }
 
 handler.help = ['lirik'].map(v => v + ' <Apa>')
