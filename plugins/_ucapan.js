@@ -14,6 +14,10 @@ m.reply('Piye cok?');
 }
 break
 
+case 'bot': {
+m.reply('Apa sayangg?')
+} break
+
 case 'suwun': case 'suwon': {
 m.reply('Nggih');
 }
