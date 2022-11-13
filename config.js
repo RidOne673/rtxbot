@@ -13,12 +13,14 @@ global.APIs = { // API Prefix
   nrttm: 'https://nurutomo.herokuapp.com',
   xteam: 'https://api.xteam.xyz',
   violetics: 'https://violetics.pw',
-  males: 'https://malesin.xyz'
+  males: 'https://malesin.xyz',
+  leys : 'https://leyscoders-api.herokuapp.com/api/'
 }
 global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
   'https://api.xteam.xyz': 'NezukoTachibana281207',
-  'https://violetics.pw': '0a97-8713-11dc'
+  'https://violetics.pw': '0a97-8713-11dc',
+  'https://leyscoders-api.herokuapp.com/api/' : 'dappakntlll'
 }
 
 // Wm untuk stiker dan autobio
