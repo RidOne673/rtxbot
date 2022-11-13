@@ -5,10 +5,7 @@ let handler = async (m, { conn, command, args }) => {
 
   await m.reply('_Ｌｏａｄｉｎｇ．．._')
   
-   let img = await (await fetch(`https://botcahx.ddns.net/api/tools/ssweb?link=${args[0]}&full_page=true&fresh=true&output=image&file_type=png&wait_for_event=load`)).buffer()
-
-  
-   conn.sendMessage(m.chat, { image: img, caption: 'Here' }, { quoted: m })
+   conn.sendMessage(m.chat, { image: global.API('leys', '/ssweb-pc', { url: args[0] }, 'apikey'), caption: 'Here' }, { quoted: m })
 }
 handler.help = ['ssweb', 'sshp', 'sspc']
 handler.tags = ['tools']
