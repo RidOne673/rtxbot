@@ -5,7 +5,7 @@ let handler = async (m, { conn, command, args }) => {
 
   await m.reply('_Ｌｏａｄｉｎｇ．．._')
   
-   conn.sendMessage(m.chat, { image: global.API('leys', '/ssweb-pc', { url: args[0] }, 'apikey'), caption: 'Here' }, { quoted: m })
+   conn.sendMessage(m.chat, { image: {url: global.API('leys', '/ssweb-pc', { url: args[0] }, 'apikey')}, caption: 'Here' }, { quoted: m })
 }
 handler.help = ['ssweb', 'sshp', 'sspc']
 handler.tags = ['tools']
